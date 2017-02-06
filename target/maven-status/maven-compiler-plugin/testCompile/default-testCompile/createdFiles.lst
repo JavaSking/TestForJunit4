@@ -1,1 +1,2 @@
-javasking\TestForJunit4\PersonTest.class
+org\junit\LifeCycleTest.class
+org\junit\TestAnnotationTest.class
