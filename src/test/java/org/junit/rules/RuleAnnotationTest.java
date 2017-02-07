@@ -10,7 +10,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * @author JavaSking 2017Äê2ÔÂ6ÈÕ
  */
 @RunWith(Suite.class)
-@SuiteClasses({ ExpectedExceptionRuleTest.class, TimeoutRuleTest.class, TestWatcherRuleTest.class, TestNameRuleTest.class, ErrorCollectorRuleTest.class
+@SuiteClasses({ ExpectedExceptionRuleTest1.class, TimeoutRuleTest.class, TestWatcherRuleTest.class, TestNameRuleTest.class, ErrorCollectorRuleTest.class
 
 })
 public class RuleAnnotationTest {

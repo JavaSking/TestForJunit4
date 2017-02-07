@@ -1,84 +1,17 @@
 package org.junit.rules;
 
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * ExpectedException测试。
+ * ExpectedException测试。<br>
+ * 从测试1和测试2可以看出，当Before注解碰到Rule注解时，在Before方法中初始化Rule的话将失效。<br>
  * 
- * @author JavaSking 2017年2月6日
+ * @author JavaSking 2017年2月7日
  */
+@RunWith(Suite.class)
+@SuiteClasses({ ExpectedExceptionRuleTest1.class, ExpectedExceptionRuleTest2.class, ExpectedExceptionRuleTest3.class })
 public class ExpectedExceptionRuleTest {
 
-	@Rule
-	public ExpectedException expected = ExpectedException.none();
-
-	@Test
-	public void expectExceptionSuccess() {
-
-		expected.expect(IndexOutOfBoundsException.class);
-		throw new IndexOutOfBoundsException("expectExceptionSuccess");
-	}
-
-	@Test
-	public void expectExceptionFailure() {//故障
-
-		expected.expect(IndexOutOfBoundsException.class);
-		throw new IllegalArgumentException("expectExceptionFailure");
-	}
-
-	@Test
-	public void expectMessageSuccess() {
-
-		expected.expectMessage("expectMessage");
-		throw new RuntimeException("<<expectMessage>>");
-	}
-
-	@Test
-	public void expectMessageFailure() {//故障
-
-		expected.expectMessage("expectMessage");
-		throw new RuntimeException("<<expect>><<Message>>");
-	}
-
-	@Test
-	public void expectCourseSuccess() {
-
-		expected.expectCause(new BaseMatcher<IllegalArgumentException>() {
-
-			public boolean matches(Object item) {
-
-				return item instanceof IllegalArgumentException;
-			}
-
-			public void describeTo(Description description) {
-
-				description.appendText("Cause:IllegalArgumentException");
-			}
-		});
-		Throwable cause = new IllegalArgumentException("IllegalArgumentException");
-		throw new RuntimeException(cause);
-	}
-
-	@Test
-	public void expectCourseFailure() {//故障
-
-		expected.expectCause(new BaseMatcher<IllegalArgumentException>() {
-
-			public boolean matches(Object item) {
-
-				return item instanceof IllegalArgumentException;
-			}
-
-			public void describeTo(Description description) {
-
-				description.appendText("Cause:IllegalArgumentException");
-			}
-		});
-		Throwable cause = new IndexOutOfBoundsException("IndexOutOfBoundsException");
-		throw new RuntimeException(cause);
-	}
 }
